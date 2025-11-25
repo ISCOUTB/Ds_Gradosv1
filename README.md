@@ -4,15 +4,15 @@ Plataforma de Gestión de Requisitos de Grado (Oracle APEX)
 
 Este repositorio contiene la exportación completa de la aplicación Oracle APEX desarrollada para gestionar certificados y entregas académicas (Saber Pro, Tesis y Prácticas), así como el seguimiento del progreso académico de los estudiantes.
 
---Contenido del repositorio
+Contenido del repositorio
 Archivo	Descripción
 f149984.zip	Exportación completa de la aplicación APEX (ID 149984). Incluye páginas, procesos, autenticación, navegación y objetos de apoyo.
 
---Descripción funcional
+Descripción funcional
 
 La aplicación permite:
 
---Para estudiantes
+Para estudiantes
 
 Registrar la entrega de:
 
@@ -101,6 +101,6 @@ Oracle Database 19c o superior
 
 Tablespace con soporte para BLOBs
 
-📄 Licencia
+Licencia
 
 Este proyecto puede usarse con fines educativos y de desarrollo interno.
