@@ -1,0 +1,21 @@
+---
+- # ====== List of Values: USUARIO.NOMBRE ======================
+  id: 110697924358498819681
+  identification: 
+    name: USUARIO.NOMBRE
+
+  subscription: 
+    version-number: 15672753581053
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: USUARIO
+
+  column-mapping: 
+    return: ID
+    display: NOMBRE
+    default-sort: NOMBRE
+    sort-direction: Ascending (Nulls Last)
+

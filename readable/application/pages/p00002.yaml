@@ -1,0 +1,1056 @@
+---
+# ====== Page: Dashboard Estudiante ==========================
+id: 2
+identification: 
+  name: Dashboard Estudiante
+  alias: DASHBOARD-ESTUDIANTE
+  title: Dashboard Estudiante
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+css: 
+  inline: |
+    /* Contenedor general */
+    .utb-container {
+      display: flex;
+      gap: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    /* Bloques */
+    .utb-block {
+      flex: 1;
+      padding: 25px;
+      color: white;
+      position: relative;
+      font-size: 39px;
+      font-weight: 500;
+      border-radius: 0;
+      min-height: 150px;
+      font-family: Impact, sans-serif;
+      letter-spacing: 1px;   /* <-- Separación entre letras */
+      line-height: 1.2;      /* <-- Altura entre líneas */
+    }
+    
+    /* Colores exactos */
+    .utb-saber { background: #01C0F0; }     /* Azul claro */
+    .utb-tesis { background: #7BE731; }     /* Verde claro */
+    .utb-practicas { background: #058b5e; } /* Verde oscuro */
+    
+    /* Títulos */
+    .utb-title {
+      margin-bottom: 15px;
+    }
+    
+    /* Estados */
+    .utb-status {
+      background: #fff;
+      color: #0047BA;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+    
+    /* Flechas */
+    .utb-arrow {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+    
+    /* Botón feedback */
+    .utb-feedback {
+      background: white;
+      color: #0047BA;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    
+    
+    
+
+html-header: 
+  html-header: |
+    
+    
+  page-html-body-attribute: |
+    
+    
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: Perfil del Estudiante =======================
+  id: 85851962115412414313
+  identification: 
+    name: Perfil del Estudiante
+    type: Static Content
+
+  layout: 
+    sequence: 50
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Blank with Attributes
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Resumen Académico ===========================
+  id: 85851964038602414332
+  identification: 
+    name: Resumen Académico
+    type: Cards
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT 
+          'Materias aprobadas' AS titulo,
+          COUNT(*) AS valor,
+          '✅' AS icono
+      FROM materia_estudiante
+      WHERE id_estudiante = :P10_USER_ID
+        AND estado = 'aprobada'
+      
+      UNION ALL
+      
+      SELECT 
+          'Materias en curso',
+          COUNT(*),
+          '📘'
+      FROM materia_estudiante
+      WHERE id_estudiante = :P10_USER_ID
+        AND estado = 'en curso'
+      
+      UNION ALL
+      
+      SELECT 
+          'Materias pendientes',
+          (
+              SELECT COUNT(*) 
+              FROM plan_materia pm
+              WHERE pm.id_plan = (
+                  SELECT id_plan 
+                  FROM materia_estudiante 
+                  WHERE id_estudiante = :P10_USER_ID 
+                  FETCH FIRST 1 ROWS ONLY
+              )
+          )
+          - (SELECT COUNT(*) 
+             FROM materia_estudiante 
+             WHERE id_estudiante = :P10_USER_ID),
+          '❌'
+      FROM dual;
+      
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 60
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: 3
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Cards Container
+    template-options: 
+    - '#DEFAULT#'
+    - t-CardsRegion--hideHeader js-addHiddenHeadingRoleDesc
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    id: 85851964105213414333
+    appearance: 
+      layout: Grid
+      grid-columns: Auto
+
+    title: 
+      advanced-formatting: false
+      column: TITULO
+
+    subtitle: 
+      advanced-formatting: false
+
+    body: 
+      advanced-formatting: false
+      column: VALOR
+
+    secondary-body: 
+      advanced-formatting: false
+
+    icon-and-badge: 
+      icon-source: No Icon
+      badge-column: ICONO
+
+    media: 
+      advanced-formatting: false
+      source: No Media
+
+    performance: 
+      lazy-loading: false
+
+    pagination: 
+      type: Scroll
+      show-total-count: false
+
+- # ====== Region: Información personal  =======================
+  id: 85851964280760414334
+  identification: 
+    name: 'Información personal '
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: Perfil del Estudiante # 85851962115412414313
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Avance Académico ============================
+  id: 85851965030695414342
+  identification: 
+    name: Avance Académico
+    title: Avance Académico
+    type: Chart
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT NVL(ROUND(porcentaje_avance_real, 2), 0) AS progreso
+      FROM vista_avance_estudiante
+      WHERE id_estudiante = :P10_USER_ID
+      
+      
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 70
+    parent-region: 'Información personal ' # 85851964280760414334
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  security: 
+    escape-special-characters: true
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    id: 85851965120751414343
+    chart: 
+      type: Status Meter Gauge
+
+    title: 
+      title: progreso
+
+    layout: 
+      maximum-width: 90
+      height: 100
+
+    gauge: 
+      orientation: Circular
+      show-plot-area: true
+      indicator-size: 1
+      inner-radius: 0.7
+      start-angle: 90
+      angle-extent: 360
+
+    value: 
+      show: true
+      value-type: Number
+      format: Percent
+      format-scaling: Automatic
+
+    animation: 
+      on-display: Automatic
+      on-data-change: Slide to Right
+
+    tooltip: 
+      show: true
+
+    series: 
+    - # ====== Series: New =========================================
+      id: 85851965239007414344
+      identification: 
+        name: New
+
+      execution: 
+        sequence: 10
+
+      source: 
+        location: Local Database
+        type: SQL Query
+        sql-query: |
+          SELECT 
+              NVL(ROUND(porcentaje_avance_real, 2), 0) AS progreso
+          FROM vista_avance_estudiante
+          WHERE id_estudiante = :P10_USER_ID
+          
+
+      order-by: 
+        type: None
+
+      column-mapping: 
+        value: PROGRESO
+        maximum-value: PROGRESO
+
+      appearance: 
+        color: '#007aff'
+        plot-area-color: '#34aadc'
+
+      thresholds: 
+        display: On Indicator
+
+      label: 
+        show: true
+        position: Automatic
+
+- # ====== Region: REG_DASHBOARD_GRADO =========================
+  id: 96132732869050496148
+  identification: 
+    name: REG_DASHBOARD_GRADO
+    type: Static Content
+
+  source: 
+    html-code: |
+      <div class="utb-container">
+      
+        <!-- Saber Pro -->
+        <div class="utb-block utb-saber">
+          <div class="utb-title">Saber Pro</div>
+          <span class="utb-status" id="saber_status">&STATUS_SABER.</span>
+      
+          <!-- MISMO botón, solo ajustado -->
+          <a href="f?p=&APP_ID.:3:&SESSION." class="utb-arrow">></a>
+        </div>
+      
+        <!-- Tesis -->
+        <div class="utb-block utb-tesis">
+          <div class="utb-title">Tesis</div>
+          <span class="utb-status" id="tesis_status">&STATUS_TESIS.</span>
+          <a href="#" class="utb-feedback">Ver Feedback</a>
+      
+          <!-- Enlace a Página 4 -->
+          <a href="f?p=&APP_ID.:4:&SESSION.::NO::" class="utb-feedback">Ver Feedback</a>
+      
+        </div>
+      
+        <!-- Prácticas -->
+        <div class="utb-block utb-practicas">
+          <div class="utb-title">Prácticas</div>
+          <span class="utb-status" id="practicas_status">&STATUS_PRACTICA.</span>
+      
+          <!-- MISMO botón, solo ajustado -->
+          <a href="f?p=&APP_ID.:5:&SESSION." class="utb-arrow">></a>
+        </div>
+      
+      </div>
+      
+      &P2_STATUS_SABER.
+      &P2_STATUS_TESIS.
+      &P2_STATUS_PRACTICA.
+      
+
+  layout: 
+    sequence: 30
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Blank with Attributes
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - utb-dashboard
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Aviso: ======================================
+  id: 109035172244016198502
+  identification: 
+    name: 'Aviso:'
+    title: textoavance
+    type: PL/SQL Dynamic Content [Legacy]
+
+  source: 
+    pl/sql-code: |
+      DECLARE
+        v_color VARCHAR2(10);
+      BEGIN
+        IF :P10_AVANCE < 50 THEN
+          v_color := 'red';
+        ELSIF :P10_AVANCE < 80 THEN
+          v_color := 'orange';
+        ELSE
+          v_color := 'green';
+        END IF;
+      
+        htp.p('<p style="font-size: 1.2em; text-align: center; margin-top: 10px;">');
+        htp.p('Has completado <strong style="color:' || v_color || ';">' 
+              || NVL(:P10_AVANCE, 0) || '%</strong> de tu plan de estudios.');
+        htp.p('</p>');
+      END;
+      
+
+  layout: 
+    sequence: 80
+    parent-region: 'Información personal ' # 85851964280760414334
+    slot: BODY
+    start-new-layout: false
+    start-new-row: false
+    column: Automatic
+    new-column: false
+    column-span: Automatic
+
+  appearance: 
+    template: Blank with Attributes
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  server-cache: 
+    caching: Disabled
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+- # ====== Region: Mis Certificados ============================
+  id: 109035174170184198521
+  identification: 
+    name: Mis Certificados
+    type: Cards
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT 
+          tipo AS title,
+          TO_CHAR(fecha_entrega, 'DD-MON-YYYY HH24:MI') AS subtitle,
+          estado AS body,
+          id AS card_link
+      FROM certificado
+      WHERE id_estudiante = :P10_USER_ID
+      ORDER BY fecha_entrega DESC;
+      
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 80
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Cards Container
+    template-options: 
+    - '#DEFAULT#'
+    - t-CardsRegion--hideHeader js-addHiddenHeadingRoleDesc
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    id: 109035174290910198522
+    appearance: 
+      layout: Grid
+      grid-columns: 2 Columns
+
+    title: 
+      advanced-formatting: false
+      column: TITLE
+
+    subtitle: 
+      advanced-formatting: false
+      column: SUBTITLE
+
+    body: 
+      advanced-formatting: false
+      column: BODY
+
+    secondary-body: 
+      advanced-formatting: false
+
+    icon-and-badge: 
+      icon-source: No Icon
+
+    media: 
+      advanced-formatting: false
+      source: No Media
+
+    performance: 
+      lazy-loading: false
+
+    pagination: 
+      type: Scroll
+      show-total-count: false
+
+    messages: 
+      when-no-data-found: Usted no ha subido certificados aún
+
+- # ====== Region: Dashboard Estudiante ========================
+  id: 109452641589555708106
+  identification: 
+    name: Dashboard Estudiante
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+page-items: 
+- # ====== Page Item: P10_USER_ID ==============================
+  id: 85851962038749414312
+  identification: 
+    name: P10_USER_ID
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 10
+    region: No Parent
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT id FROM usuario WHERE correo = LOWER(:APP_USER)'
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P10_USER_NAME ============================
+  id: 85851962202023414314
+  identification: 
+    name: P10_USER_NAME
+    type: Display Only
+
+  label: 
+    label: Nombre
+    alignment: Left
+
+  settings: 
+    format: Plain Text
+    based-on: Item Value
+    show-line-breaks: true
+    send-on-page-submit: true
+
+  layout: 
+    sequence: 50
+    region: 'Información personal ' # 85851964280760414334
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT nombre FROM usuario WHERE id = :P10_USER_ID'
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P10_USER_EMAIL ===========================
+  id: 85851962364359414315
+  identification: 
+    name: P10_USER_EMAIL
+    type: Display Only
+
+  label: 
+    label: Correo
+    alignment: Left
+
+  settings: 
+    format: Plain Text
+    based-on: Item Value
+    show-line-breaks: true
+    send-on-page-submit: true
+
+  layout: 
+    sequence: 60
+    region: 'Información personal ' # 85851964280760414334
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: false
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT correo FROM usuario WHERE id = :P10_USER_ID'
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P2_STATUS_SABER ==========================
+  id: 96132732920872496149
+  identification: 
+    name: P2_STATUS_SABER
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 10
+    region: REG_DASHBOARD_GRADO # 96132732869050496148
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT estatus
+      FROM estatus_grado
+      WHERE id_usuario = :APP_USER_ID;
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P2_STATUS_TESIS ==========================
+  id: 96132733053654496150
+  identification: 
+    name: P2_STATUS_TESIS
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 30
+    region: REG_DASHBOARD_GRADO # 96132732869050496148
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT estado
+      FROM historial
+      WHERE id_profesor IS NOT NULL
+      ORDER BY fecha_revision DESC
+      FETCH FIRST 1 ROWS ONLY;
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P10_AVANCE ===============================
+  id: 109035172343018198503
+  identification: 
+    name: P10_AVANCE
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 70
+    region: No Parent
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT NVL(ROUND(porcentaje_avance_real, 2), 0)
+      FROM vista_avance_estudiante
+      WHERE id_estudiante = :P10_USER_ID
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P2_STATUS_PRACTICA =======================
+  id: 109452641010835708101
+  identification: 
+    name: P2_STATUS_PRACTICA
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 40
+    region: REG_DASHBOARD_GRADO # 96132732869050496148
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT estado
+      FROM certificado
+      WHERE id_estudiante = :APP_USER_ID
+      ORDER BY fecha_entrega DESC
+      FETCH FIRST 1 ROWS ONLY;
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+dynamic-actions: 
+- # ====== Dynamic Action: Refrescar avance ====================
+  id: 109035172485120198504
+  identification: 
+    name: Refrescar avance
+
+  execution: 
+    sequence: 10
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Change
+    selection-type: Item(s)
+    item(s): 
+    - P10_USER_ID
+
+  actions: 
+  - # ====== Action: Refresh =====================================
+    id: 109035172508416198505
+    identification: 
+      action: Refresh
+
+    settings: 
+      maintain-pagination: false
+
+    affected-elements: 
+      selection-type: Item(s)
+      item(s): 
+      - P10_AVANCE
+
+    execution: 
+      sequence: 10
+      event: Refrescar avance # 109035172485120198504
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+  - # ====== Action: Refresh =====================================
+    id: 109035172604998198506
+    identification: 
+      name: Refresh
+      action: Show
+
+    affected-elements: 
+      selection-type: Region
+      region: Avance Académico # 85851965030695414342
+
+    execution: 
+      sequence: 20
+      event: Refrescar avance # 109035172485120198504
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+processes: 
+- # ====== Process: New ========================================
+  id: 85851965795900414349
+  identification: 
+    name: New
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      BEGIN
+        SELECT id 
+        INTO :P10_USER_ID
+        FROM usuario
+        WHERE correo = LOWER(:APP_USER);
+      EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          :P10_USER_ID := NULL;
+      END;
+      
+
+  execution: 
+    sequence: 10
+    point: Before Header
+    run-process: Once Per Page Visit (default)
+

@@ -1,0 +1,91 @@
+---
+- # ====== Breadcrumb: Breadcrumb ==============================
+  id: 108431187078696520157
+  identification: 
+    name: Breadcrumb
+
+  entries: 
+  - # ====== Entry: Home =========================================
+    id: 108431187257014520157
+    identification: 
+      name: Home
+      page-number: 1
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:1:&APP_SESSION.::&DEBUG.:::'
+        page: 1 # Home
+
+  - # ====== Entry: Dashboard Estudiante =========================
+    id: 108849806538052793100
+    identification: 
+      name: Dashboard Estudiante
+      page-number: 2
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:2:&APP_SESSION.::&DEBUG.:::'
+        page: 2 # Dashboard Estudiante
+
+  - # ====== Entry: TESIS ========================================
+    id: 110103437830226111448
+    identification: 
+      name: TESIS
+      page-number: 4
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:4:&APP_SESSION.::&DEBUG.:::'
+        page: 4 # Tesis
+
+  - # ====== Entry: SABER PRO ====================================
+    id: 110103632709737420555
+    identification: 
+      name: SABER PRO
+      page-number: 3
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:3:&APP_SESSION.::&DEBUG.:::'
+        page: 3 # Saber Pro
+
+  - # ====== Entry: PRÁCTICAS ====================================
+    id: 110103902089877115184
+    identification: 
+      name: PRÁCTICAS
+      page-number: 5
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:5:&APP_SESSION.::&DEBUG.:::'
+        page: 5 # Prácticas
+
+  - # ====== Entry: Gestión de Certificados ======================
+    id: 110697922184687819491
+    identification: 
+      name: Gestión de Certificados
+      page-number: 10
+
+    execution: 
+      sequence: 10
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:10:&APP_SESSION.::&DEBUG.:::'
+        page: 10 # Gestión de Certificados
+

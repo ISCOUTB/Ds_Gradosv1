@@ -1,0 +1,303 @@
+---
+# ====== Page: Gestión de Certificados =======================
+id: 10
+identification: 
+  name: Gestión de Certificados
+  alias: GESTIÓN-DE-CERTIFICADOS
+  title: Gestión de Certificados
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: Breadcrumb ==================================
+  id: 110697921684621819490
+  identification: 
+    name: Breadcrumb
+    type: Breadcrumb
+
+  source: 
+    breadcrumb: Breadcrumb # 108431187078696520157
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Title Bar
+    template-options: 
+    - '#DEFAULT#'
+    - t-BreadcrumbRegion--useBreadcrumbTitle
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    appearance: 
+      breadcrumb-template: Breadcrumb
+      template-options: 
+      - '#DEFAULT#'
+
+- # ====== Region: Gestión de Certificados =====================
+  id: 110697922324241819492
+  identification: 
+    name: Gestión de Certificados
+    type: Cards
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT
+          id,
+          tipo AS title,
+          TO_CHAR(fecha_entrega, 'DD-MON-YYYY HH24:MI') AS subtitle,
+          'Estado: ' || estado AS body,
+      
+          '<div>' ||
+      
+          -- Botón APROBAR
+          '<button type="button" class="t-Button t-Button--success t-Button--small" ' ||
+          'onclick="javascript:apex.item(''P20_ID_CERTIFICADO'').setValue(' || id || '); apex.submit(''APROBAR'');">' ||
+          'Aprobar</button>' ||
+      
+          -- Botón RECHAZAR
+          '<button type="button" class="t-Button t-Button--danger t-Button--small" ' ||
+          'style="margin-left:10px;" ' ||
+          'onclick="javascript:apex.item(''P20_ID_CERTIFICADO'').setValue(' || id || '); apex.submit(''RECHAZAR'');">' ||
+          'Rechazar</button>' ||
+      
+          '</div>' AS secondary_body
+      
+      FROM certificado
+      ORDER BY fecha_entrega DESC;
+      
+      
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Cards Container
+    template-options: 
+    - '#DEFAULT#'
+    - t-CardsRegion--hideHeader js-addHiddenHeadingRoleDesc
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    id: 109035176899971198548
+    appearance: 
+      layout: Grid
+      grid-columns: 2 Columns
+
+    title: 
+      advanced-formatting: false
+      column: TITLE
+
+    subtitle: 
+      advanced-formatting: false
+      column: SUBTITLE
+
+    body: 
+      advanced-formatting: false
+      column: BODY
+
+    secondary-body: 
+      advanced-formatting: false
+      column: SECONDARY_BODY
+
+    icon-and-badge: 
+      icon-source: No Icon
+
+    media: 
+      advanced-formatting: false
+      source: No Media
+
+    performance: 
+      lazy-loading: false
+
+    pagination: 
+      type: Scroll
+      show-total-count: true
+
+buttons: 
+- # ====== Button: APROBAR =====================================
+  id: 109035177025488198550
+  identification: 
+    button-name: APROBAR
+    label: Aprobar
+
+  layout: 
+    sequence: 10
+    region: Gestión de Certificados # 110697922324241819492
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - u-hidden
+
+  behavior: 
+    action: Redirect to URL
+    target: "javascript:apex.submit('APROBAR');"
+    execute-validations: true
+    warn-on-unsaved-changes: Do Not Check
+
+- # ====== Button: RECHAZAR ====================================
+  id: 110701180325716271601
+  identification: 
+    button-name: RECHAZAR
+    label: Rechazar
+
+  layout: 
+    sequence: 10
+    region: Gestión de Certificados # 110697922324241819492
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - u-hidden
+
+  behavior: 
+    action: Redirect to URL
+    target: "javascript:apex.submit('RECHAZAR');"
+    execute-validations: true
+    warn-on-unsaved-changes: Do Not Check
+
+processes: 
+- # ====== Process: P10_APROBAR_CERTIFICADO ====================
+  id: 109035176919144198549
+  identification: 
+    name: P10_APROBAR_CERTIFICADO
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      UPDATE certificado
+      SET estado = 'aprobado'
+      WHERE id = :P10_ID_CERTIFICADO;
+      
+
+  execution: 
+    sequence: 10
+    point: Processing
+    run-process: Once Per Page Visit (default)
+
+  error: 
+    display-location: Inline in Notification
+
+  server-side-condition: 
+    when-button-pressed: APROBAR # 109035177025488198550
+
+- # ====== Process: P10_RECHAZAR_CERTIFICADO ===================
+  id: 110701180431702271602
+  identification: 
+    name: P10_RECHAZAR_CERTIFICADO
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      UPDATE certificado
+      SET estado = 'rechazado'
+      WHERE id = :P10_ID_CERTIFICADO;
+      
+
+  execution: 
+    sequence: 20
+    point: Processing
+    run-process: Once Per Page Visit (default)
+
+  error: 
+    display-location: Inline in Notification
+
+  server-side-condition: 
+    when-button-pressed: RECHAZAR # 110701180325716271601
+

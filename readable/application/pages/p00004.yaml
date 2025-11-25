@@ -1,0 +1,377 @@
+---
+# ====== Page: Tesis =========================================
+id: 4
+identification: 
+  name: Tesis
+  alias: TESIS
+  title: Tesis
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: Entrega de Tesis ============================
+  id: 109035174604661198526
+  identification: 
+    name: Entrega de Tesis
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Tesis =======================================
+  id: 110103437252777111447
+  identification: 
+    name: Tesis
+    type: Static Content
+
+  source: 
+    html-code: bienvenido estudiante UTB. Por favor haga entrega de su trabajo de grado.
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+page-items: 
+- # ====== Page Item: P4_ARCHIVO ===============================
+  id: 109035174862400198528
+  identification: 
+    name: P4_ARCHIVO
+    type: File Upload
+
+  label: 
+    label: Archivo
+    alignment: Left
+
+  display: 
+    display-as: Block Dropzone
+    dropzone-title: Arrastre su certificado aquí
+    capture-using: NONE
+
+  storage:: 
+    type: Table APEX_APPLICATION_TEMP_FILES
+    purge-file-at: End of Session
+    allow-multiple-files: false
+    file-types: application/pdf
+
+  layout: 
+    sequence: 10
+    region: Entrega de Tesis # 109035174604661198526
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: false
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P4_AUTORIZACION ==========================
+  id: 109035174946770198529
+  identification: 
+    name: P4_AUTORIZACION
+    type: Checkbox
+
+  label: 
+    label: Confirmo que este documento es de mi autoría y autorizo su uso académico.
+    alignment: Left
+
+  settings: 
+    use-defaults: true
+
+  layout: 
+    sequence: 20
+    region: Entrega de Tesis # 109035174604661198526
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+
+  validation: 
+    value-required: true
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P4_ID_ESTUDIANTE =========================
+  id: 109035175081538198530
+  identification: 
+    name: P4_ID_ESTUDIANTE
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 30
+    region: Entrega de Tesis # 109035174604661198526
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT id FROM usuario WHERE correo = LOWER(:APP_USER)'
+    used: Always, replacing any existing value in session state
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P4_TIPO_CERTIFICADO ======================
+  id: 109035175101928198531
+  identification: 
+    name: P4_TIPO_CERTIFICADO
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 40
+    region: Entrega de Tesis # 109035174604661198526
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  default: 
+    type: Static
+    static-value: |
+      TESIS
+      
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+buttons: 
+- # ====== Button: ENVIAR_TESIS ================================
+  id: 109035175246639198532
+  identification: 
+    button-name: ENVIAR_TESIS
+    label: Enviar Tesis
+
+  layout: 
+    sequence: 50
+    region: Entrega de Tesis # 109035174604661198526
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text with Icon
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    - t-Button--iconLeft
+    icon: fa-arrow-circle-o-up
+
+  behavior: 
+    action: Submit Page
+    execute-validations: true
+    show-processing: false
+    warn-on-unsaved-changes: Do Not Check
+
+processes: 
+- # ====== Process: PR_INSERT_TESIS ============================
+  id: 109035175358962198533
+  identification: 
+    name: PR_INSERT_TESIS
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      DECLARE
+          v_blob BLOB;
+      BEGIN
+          -- Obtener el archivo real desde la tabla temporal de APEX
+          SELECT blob_content 
+          INTO v_blob
+          FROM apex_application_temp_files
+          WHERE name = :P4_ARCHIVO;
+      
+          -- Insertar en tu tabla CERTIFICADO
+          INSERT INTO certificado (
+              tipo,
+              fecha_entrega,
+              archivo,
+              autorizacion,
+              estado,
+              id_estudiante
+          ) VALUES (
+              :P4_TIPO_CERTIFICADO,  -- TESIS
+              SYSTIMESTAMP,
+              v_blob,
+              :P4_AUTORIZACION,
+              'pendiente',
+              :P4_ID_ESTUDIANTE
+          );
+      END;
+      
+
+  execution: 
+    sequence: 10
+    point: After Submit
+    run-process: Once Per Page Visit (default)
+
+  success-message: 
+    success-message: Has subido correctamente el documento. En espera de aprobación.
+
+  error: 
+    display-location: Inline in Notification
+

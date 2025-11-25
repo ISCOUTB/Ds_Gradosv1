@@ -1,0 +1,390 @@
+---
+# ====== Page: Saber Pro =====================================
+id: 3
+identification: 
+  name: Saber Pro
+  alias: SABER-PRO
+  title: Saber Pro
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: Entrega de Certificado ======================
+  id: 109035173108267198511
+  identification: 
+    name: Entrega de Certificado
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Saber Pro ===================================
+  id: 109452641420060708105
+  identification: 
+    name: Saber Pro
+    type: Static Content
+
+  source: 
+    html-code: Bienvenido estudiante UTB. Por favor haga entrega del certificado de presentación Saber Pro.
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+page-items: 
+- # ====== Page Item: P3_ARCHIVO ===============================
+  id: 109035173326227198513
+  identification: 
+    name: P3_ARCHIVO
+    type: File Upload
+
+  label: 
+    label: Archivo
+    alignment: Left
+
+  display: 
+    display-as: Block Dropzone
+    dropzone-title: Arrastre su certificado aquí
+    capture-using: NONE
+
+  storage:: 
+    type: Table APEX_APPLICATION_TEMP_FILES
+    purge-file-at: End of Session
+    allow-multiple-files: false
+    file-types: application/pdf
+    maximum-file-size: 500
+
+  layout: 
+    sequence: 10
+    region: Entrega de Certificado # 109035173108267198511
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: true
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P3_TIPO_CERTIFICADO ======================
+  id: 109035173424628198514
+  identification: 
+    name: P3_TIPO_CERTIFICADO
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 20
+    region: Entrega de Certificado # 109035173108267198511
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Static Value
+    static-value: SABER_PRO
+    used: Always, replacing any existing value in session state
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P3_AUTORIZACION ==========================
+  id: 109035173511564198515
+  identification: 
+    name: P3_AUTORIZACION
+    type: Checkbox
+
+  label: 
+    label: Confirmo la autenticidad y autorizo el tratamiento de datos.
+    alignment: Left
+
+  settings: 
+    use-defaults: true
+
+  layout: 
+    sequence: 30
+    region: Entrega de Certificado # 109035173108267198511
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+
+  validation: 
+    value-required: true
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P3_ID_ESTUDIANTE =========================
+  id: 109035173685633198516
+  identification: 
+    name: P3_ID_ESTUDIANTE
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 40
+    region: Entrega de Certificado # 109035173108267198511
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT id FROM usuario WHERE correo = LOWER(:APP_USER)'
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+buttons: 
+- # ====== Button: ENVIAR_CERTIFICADO ==========================
+  id: 109035173770396198517
+  identification: 
+    button-name: ENVIAR_CERTIFICADO
+    label: Enviar Certificado
+
+  layout: 
+    sequence: 50
+    region: Entrega de Certificado # 109035173108267198511
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text with Icon
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    - t-Button--iconLeft
+    icon: fa-arrow-circle-o-up
+
+  behavior: 
+    action: Submit Page
+    execute-validations: true
+    show-processing: false
+    warn-on-unsaved-changes: Page Default
+
+processes: 
+- # ====== Process: PR_INSERT_CERTIFICADO ======================
+  id: 109035173908945198519
+  identification: 
+    name: PR_INSERT_CERTIFICADO
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      DECLARE
+          v_blob BLOB;
+      BEGIN
+          -- Obtener el archivo real desde la tabla temporal
+          SELECT blob_content 
+          INTO v_blob
+          FROM apex_application_temp_files
+          WHERE name = :P3_ARCHIVO;    -- APEX guarda aquí el ID temporal
+      
+          -- Insertarlo en tu tabla
+          INSERT INTO certificado (
+              tipo,
+              fecha_entrega,
+              archivo,
+              autorizacion,
+              estado,
+              id_estudiante
+          )
+          VALUES (
+              :P3_TIPO_CERTIFICADO,
+              SYSTIMESTAMP,
+              v_blob,                  -- AQUÍ VA EL BLOB REAL
+              :P3_AUTORIZACION,
+              'pendiente',
+              :P3_ID_ESTUDIANTE
+          );
+      END;
+      
+
+  execution: 
+    sequence: 20
+    point: After Submit
+    run-process: Once Per Page Visit (default)
+
+  error: 
+    display-location: Inline in Notification
+
+- # ====== Process: New ========================================
+  id: 110701180637017271604
+  identification: 
+    name: New
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      :P3_ID_ESTUDIANTE := :P10_USER_ID;
+      
+
+  execution: 
+    sequence: 10
+    point: Before Header
+    run-process: Once Per Page Visit (default)
+

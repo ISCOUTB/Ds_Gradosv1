@@ -1,0 +1,380 @@
+---
+# ====== Page: Prácticas =====================================
+id: 5
+identification: 
+  name: Prácticas
+  alias: PRÁCTICAS
+  title: Prácticas
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: Entrega de certificado de Prácticas =========
+  id: 109035175594783198535
+  identification: 
+    name: Entrega de certificado de Prácticas
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Prácticas ===================================
+  id: 110103901564733115183
+  identification: 
+    name: Prácticas
+    type: Static Content
+
+  source: 
+    html-code: Bienvenido estudiante UTB. Por favor haga entrega del certificado de presentación y culminación de sus prácticas profesionales.
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+page-items: 
+- # ====== Page Item: P5_ARCHIVO ===============================
+  id: 109035175673098198536
+  identification: 
+    name: P5_ARCHIVO
+    type: File Upload
+
+  label: 
+    label: Archivo
+    alignment: Left
+
+  display: 
+    display-as: Block Dropzone
+    dropzone-title: arrastre aquí su certificado
+    capture-using: NONE
+
+  storage:: 
+    type: Table APEX_APPLICATION_TEMP_FILES
+    purge-file-at: End of Session
+    allow-multiple-files: false
+    file-types: application/pdf
+
+  layout: 
+    sequence: 10
+    region: Entrega de certificado de Prácticas # 109035175594783198535
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: true
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P5_AUTORIZACION ==========================
+  id: 109035175740350198537
+  identification: 
+    name: P5_AUTORIZACION
+    type: Checkbox
+
+  label: 
+    label: Acepto las políticas de tratamiento de datos de la  institución.
+    alignment: Left
+
+  settings: 
+    use-defaults: true
+
+  layout: 
+    sequence: 20
+    region: Entrega de certificado de Prácticas # 109035175594783198535
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+
+  validation: 
+    value-required: false
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P5_ID_ESTUDIANTE =========================
+  id: 109035175872018198538
+  identification: 
+    name: P5_ID_ESTUDIANTE
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 30
+    region: Entrega de certificado de Prácticas # 109035175594783198535
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: SQL Query (return single value)
+    sql-query: 'SELECT id FROM usuario WHERE correo = LOWER(:APP_USER)'
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P5_TIPO_CERTIFICADO ======================
+  id: 109035175934942198539
+  identification: 
+    name: P5_TIPO_CERTIFICADO
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 40
+    region: Entrega de certificado de Prácticas # 109035175594783198535
+    slot: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  default: 
+    type: Static
+    static-value: |
+      PRACTICAS
+      
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+buttons: 
+- # ====== Button: ENVIAR_PRACTICAS ============================
+  id: 109035176026031198540
+  identification: 
+    button-name: ENVIAR_PRACTICAS
+    label: Enviar Practicas
+
+  layout: 
+    sequence: 50
+    region: Entrega de certificado de Prácticas # 109035175594783198535
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text with Icon
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    - t-Button--iconLeft
+    icon: fa-arrow-circle-o-up
+
+  behavior: 
+    action: Submit Page
+    execute-validations: true
+    show-processing: false
+    warn-on-unsaved-changes: Do Not Check
+
+processes: 
+- # ====== Process: PR_INSERT_PRACTICAS ========================
+  id: 109035176122918198541
+  identification: 
+    name: PR_INSERT_PRACTICAS
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      DECLARE
+          v_blob BLOB;
+      BEGIN
+          -- Obtener el archivo real desde la tabla temporal
+          SELECT blob_content 
+          INTO v_blob
+          FROM apex_application_temp_files
+          WHERE name = :P5_ARCHIVO;
+      
+          -- Insertar en CERTIFICADO
+          INSERT INTO certificado (
+              tipo,
+              fecha_entrega,
+              archivo,
+              autorizacion,
+              estado,
+              id_estudiante
+          ) VALUES (
+              :P5_TIPO_CERTIFICADO,  -- PRACTICAS
+              SYSTIMESTAMP,
+              v_blob,
+              :P5_AUTORIZACION,
+              'pendiente',
+              :P5_ID_ESTUDIANTE
+          );
+      END;
+      
+
+  execution: 
+    sequence: 10
+    point: After Submit
+    run-process: Once Per Page Visit (default)
+
+  success-message: 
+    success-message: Ha entregado su certificado de prácticas exitosamente.
+
+  error: 
+    display-location: Inline in Notification
+
+  server-side-condition: 
+    when-button-pressed: ENVIAR_PRACTICAS # 109035176026031198540
+

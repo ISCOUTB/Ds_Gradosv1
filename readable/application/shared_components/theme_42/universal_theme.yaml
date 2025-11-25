@@ -1,0 +1,88 @@
+---
+# ====== Theme: Universal Theme ==============================
+id: 42
+identification: 
+  theme-number: 42
+  name: Universal Theme
+  identifier: UNIVERSAL_THEME
+  version: 24.2
+
+navigation: 
+  type: List
+  navigation-bar-type: List
+
+javascript: 
+  file-urls: 
+  - '#APEX_FILES#libraries/apex/#MIN_DIRECTORY#widget.stickyWidget#MIN#.js?v=#APEX_VERSION#'
+  - '#THEME_FILES#js/theme42#MIN#.js?v=#APEX_VERSION#'
+
+css: 
+  file-urls: 
+  - '#THEME_FILES#css/Core#MIN#.css?v=#APEX_VERSION#'
+
+component-defaults: 
+  current-theme-style: Utb scheme
+  page: Standard
+  navigation-bar-list: Navigation Bar
+  navigation-menu-list-position: Side
+  navigation-menu-list-(top): Top Navigation Menu
+  navigation-menu-list-(side): Side Navigation Menu
+  login-page: Login
+  error-page: Login
+  printer-friendly-page: Standard
+  breadcrumb: Breadcrumb
+  button: Text
+  legacy-calendar: Calendar
+  default-label: Optional - Floating
+  optional-label: Optional - Floating
+  required-label: Required - Floating
+  list: Links List
+  region: Standard
+  classic-report: Standard
+
+region-defaults: 
+  breadcrumbs: Title Bar
+  charts: Standard
+  forms: Standard
+  lists: Standard
+  reports: Standard
+  wizards: Standard
+  interactive-reports: Interactive Report
+
+dialog-defaults: 
+  dialog-content-region: Blank with Attributes
+  dialog-button-region: Buttons Container
+  dialog-page: Modal Dialog
+
+icons: 
+  library: Font APEX
+
+files: 
+  file-prefix: '#APEX_FILES#themes/theme_42/24.2/'
+
+styles: 
+- # ====== Style: Utb scheme ===================================
+  id: 108431408053100211741
+  identification: 
+    name: Utb scheme
+
+  settings: 
+    is-public: true
+    accessibility-tested: true
+
+  theme-roller-attributes: 
+    read-only: false
+    input-parameter-file-urls: '#THEME_FILES#less/theme/Vita.less'
+    output-css-file-url: '#THEME_DB_FILES#108431408053100211741.css'
+    json-configuration: '{"classes":[],"vars":{},"customCSS":"/* === Estilos de encabezado UTB === */\n.t-Header {\n  background-color: #0033CC !important;\n  min-height: 85px !important;\n  align-items: center !important;\n}\n\n.t-Header-logo {\n  padding: 10px 0 !important;\n}\n\n.t-Header-logo img {\n  height: 55px !important;\n}\n\n.utb-buttons {\n  display: flex;\n  justify-content: center;\n  align-items: stretch;\n  gap: 2rem;\n  margin-top: 2rem;\n  flex-wrap: wrap;\n}\n\n.utb-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 220px;\n  height: 180px;\n  text-align: center;\n  background-color: #ffffff;\n  border: 2px solid #0033A0;\n  border-radius: 16px;\n  color: #0033A0;\n  text-decoration: none;\n  font-weight: 600;\n  transition: all 0.3s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n\n.utb-card:hover {\n  background-color: #0033A0;\n  color: #ffffff;\n  transform: translateY(-4px);\n}\n\n.utb-icon {\n  font-size: 2.5rem;\n  margin-bottom: 10px;\n}","useCustomLess":"N"}'
+
+files: 
+- # ====== File: 108431408053100211741.css =====================
+  id: 108431408470612211744
+  identification: 
+    file-name: 108431408053100211741.css
+
+  attributes: 
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
