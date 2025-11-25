@@ -1,5 +1,5 @@
 # Ds_Gradosv1
-prototipo, plataforma de gestión de requisitos de grados
+prototipo, 
 Plataforma de Gestión de Requisitos de Grado (Oracle APEX)
 
 Este repositorio contiene la exportación completa de la aplicación Oracle APEX desarrollada para gestionar certificados y entregas académicas (Saber Pro, Tesis y Prácticas), así como el seguimiento del progreso académico de los estudiantes.
