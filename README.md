@@ -1,106 +1,65 @@
-# Ds_Gradosv1
-prototipo, 
-Plataforma de Gestión de Requisitos de Grado (Oracle APEX)
+# 🎓 Plataforma UTB — Estado de Grado y Gestión de Certificados  
+Aplicación web desarrollada con **Oracle APEX**, diseñada para estudiantes y administradores de la Universidad Tecnológica de Bolívar (UTB).  
+Permite consultar el avance académico, subir certificados obligatorios y administrar su aprobación.
 
-Este repositorio contiene la exportación completa de la aplicación Oracle APEX desarrollada para gestionar certificados y entregas académicas (Saber Pro, Tesis y Prácticas), así como el seguimiento del progreso académico de los estudiantes.
+---
 
-Contenido del repositorio
-Archivo	Descripción
-f149984.zip	Exportación completa de la aplicación APEX (ID 149984). Incluye páginas, procesos, autenticación, navegación y objetos de apoyo.
+##  Características principales
 
-Descripción funcional
+###  Para estudiantes
+- Ver porcentaje de avance en el plan de estudios.
+- Consultar el estado de cada certificado entregado.
+- Subir certificados obligatorios:
+  - Saber Pro  
+  - Tesis  
+  - Prácticas  
+- Visualizar resumen académico:
+  - Materias aprobadas  
+  - Materias en curso  
+  - Materias pendientes  
 
-La aplicación permite:
+###  Para administradores
+- Visualizar todos los certificados entregados.
+- Aprobar o rechazar certificados desde un panel tipo “Cards”.
+- Actualizar el estado del estudiante en tiempo real.
 
-Para estudiantes
+---
 
-Registrar la entrega de:
+## Arquitectura del Proyecto
 
-Certificados Saber Pro
+### **Frontend**
+- Oracle APEX 24.x  
+- Componentes:  
+  - Cards  
+  - Progress Meter  
+  - Interactive Reports  
+  - File Upload  
+  - Dynamic Actions  
 
-Trabajo de grado (Tesis)
+### **Backend**
+- PL/SQL  
+- Oracle Database 19c  
+- Tablas principales:
+  - `USUARIO`  
+  - `MATERIA`  
+  - `PLAN_ESTUDIOS`  
+  - `PLAN_MATERIA`  
+  - `MATERIA_ESTUDIANTE`  
+  - `CERTIFICADO`  
 
-Prácticas profesionales
+---
 
-Subir archivos PDF como evidencia
-
-Consultar el estado de cada entrega (pendiente, aprobada, rechazada)
-
-Revisar el avance académico por semestre
-
-Visualizar materias aprobadas, pendientes y en curso
-
-Para administradores
-
-Revisar entregas de estudiantes
-
-Aprobar o rechazar documentos
-
-Visualizar datos del estudiante asociados a cada entrega
-
-Estructura de la base de dato
-Tablas principales
-
-USUARIO
-
-id
-
-nombre
-
-correo
-
-…
-
-CERTIFICADO
-
-id
-
-tipo
-
-fecha_entrega
-
-archivo (BLOB)
-
-autorizacion
-
-estado
-
-id_estudiante
-
-MATERIA_ESTUDIANTE
-
-id
-
-id_estudiante
-
-id_materia
-
-estado
-
-(Puedes añadir los scripts SQL en este repositorio si lo deseas)
-
-Cómo importar la aplicación:
-
-Inicia sesión en Oracle APEX.
-
-Ve a App Builder → Import.
-
-Selecciona f149984.zip.
-
-Sigue el asistente de instalación.
-
-Roles soportados:
-Rol	Descripción:
-Estudiante:	Realiza entregas y revisa su avance.
-Administrador:	Revisa, aprueba y rechaza entregas.
-Requisitos
-
-Oracle APEX 22.x o superior
-
-Oracle Database 19c o superior
-
-Tablespace con soporte para BLOBs
-
-Licencia
-
-Este proyecto puede usarse con fines educativos y de desarrollo interno.
+##  Estructura del Repositorio
+proyecto-utb
+│
+├─ f149984.zip # Exportación oficial de la app APEX
+│
+├─ database/
+│ ├─ schema.sql # Tablas y relaciones
+│ ├─ demo_data.sql # Datos de prueba
+│
+├─ screenshots/
+│ ├─ dashboard.png # Capturas del dashboard
+│ ├─ admin-panel.png # Panel del administrador
+│
+└─ README.md # Documentación del proyecto
