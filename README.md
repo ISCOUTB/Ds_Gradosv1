@@ -48,18 +48,3 @@ Permite consultar el avance académico, subir certificados obligatorios y admini
   - `CERTIFICADO`  
 
 ---
-
-##  Estructura del Repositorio
-proyecto-utb
-│
-├─ f149984.zip # Exportación oficial de la app APEX
-│
-├─ database/
-│ ├─ schema.sql # Tablas y relaciones
-│ ├─ demo_data.sql # Datos de prueba
-│
-├─ screenshots/
-│ ├─ dashboard.png # Capturas del dashboard
-│ ├─ admin-panel.png # Panel del administrador
-│
-└─ README.md # Documentación del proyecto
