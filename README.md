@@ -28,7 +28,7 @@ Permite consultar el avance académico, subir certificados obligatorios y admini
 ## Arquitectura del Proyecto
 
 ### **Frontend**
-- Oracle APEX 24.x  
+- Oracle APEX 24.2.11  
 - Componentes:  
   - Cards  
   - Progress Meter  
